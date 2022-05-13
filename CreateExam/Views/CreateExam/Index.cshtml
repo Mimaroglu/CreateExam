@@ -1,0 +1,165 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using CreateExam.Data.Models;
+@model Wired
+@{
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+<form>
+    <h1>Exam Create Page</h1><div>
+        <select id="textId" asp-for="Id" asp-items="@(new SelectList(Model.NewsList,"Id","Title"))" class="form-control rounded">
+            <option selected>Yazı Seçiniz!</option>
+        </select>
+    </div>
+    <div>
+        <h3 id="desc">Lorem Ipsum</h3>
+    </div>
+    <div>
+        <div class="container border border-primary p-2 rounded mt-4">
+            <div class="row">
+                <input id="q1" type="text" class="col m-3 form-control rounded" placeholder="Soru1 Giriniz." />
+            </div>
+            <div class="row">
+                <input id="q1a1" type="text" class="col form-control m-4 rounded" placeholder="A Şıkkı" />
+                <input id="q1a2" type="text" class="col form-control m-4 rounded" placeholder="B Şıkkı" />
+            </div>
+            <div class="row">
+                <input id="q1a3" type="text" class="col form-control m-4 rounded" placeholder="C Şıkkı" />
+                <input id="q1a4" type="text" class="col form-control m-4 rounded" placeholder="D Şıkkı" />
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <input id="q1c1" type="text" class="form-control w-25 rounded" placeholder="Doğru Cevabı Giriniz..." />
+            </div>
+        </div>
+
+        <div class="container border border-primary p-2 rounded mt-4">
+            <div class="row">
+                <input id="q2" type="text" class="col m-3 form-control rounded" placeholder="Soru2 Giriniz." />
+            </div>
+            <div class="row">
+                <input id="q2a1" type="text" class="col form-control m-4 rounded" placeholder="A Şıkkı" />
+                <input id="q2a2" type="text" class="col form-control m-4 rounded" placeholder="B Şıkkı" />
+            </div>
+            <div class="row">
+                <input id="q2a3" type="text" class="col form-control m-4 rounded" placeholder="C Şıkkı" />
+                <input id="q2a4" type="text" class="col form-control m-4 rounded" placeholder="D Şıkkı" />
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <input id="q2c" type="text" class="form-control w-25 rounded" placeholder="Doğru Cevabı Giriniz..." />
+            </div>
+        </div>
+        <div class="container border border-primary p-2 rounded mt-4">
+            <div class="row">
+                <input id="q3" type="text" class="col m-3 form-control rounded" placeholder="Soru3 Giriniz." />
+            </div>
+            <div class="row">
+                <input id="q3a1" type="text" class="col form-control m-4 rounded" placeholder="A Şıkkı" />
+                <input id="q3a2" type="text" class="col form-control m-4 rounded" placeholder="B Şıkkı" />
+            </div>
+            <div class="row">
+                <input id="q3a3" type="text" class="col form-control m-4 rounded" placeholder="C Şıkkı" />
+                <input id="q3a4" type="text" class="col form-control m-4 rounded" placeholder="D Şıkkı" />
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <input id="q3c" type="text" class="form-control w-25 rounded" placeholder="Doğru Cevabı Giriniz..." />
+            </div>
+        </div>
+        <div class="container border border-primary p-2 rounded mt-4">
+            <div class="row">
+                <input id="q4" type="text" class="col m-3 form-control rounded" placeholder="Soru4 Giriniz." />
+            </div>
+            <div class="row">
+                <input id="q4a1" type="text" class="col form-control m-4 rounded" placeholder="A Şıkkı" />
+                <input id="q4a1" type="text" class="col form-control m-4 rounded" placeholder="B Şıkkı" />
+            </div>
+            <div class="row">
+                <input id="q4a1" type="text" class="col form-control m-4 rounded" placeholder="C Şıkkı" />
+                <input id="q4a1" type="text" class="col form-control m-4 rounded" placeholder="D Şıkkı" />
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <input id="q4c" type="text" class="form-control w-25 rounded" placeholder="Doğru Cevabı Giriniz..." />
+            </div>
+        </div>
+        <div class="container d-flex justify-content-center align-items-center mt-4 mb-4">
+            <button id="submit" class="btn btn-success w-25 rounded">Sınavı Oluştur</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    var model =@Json.Serialize(Model);
+    var formModel = {};
+
+    $(function () {
+        $('#textId').change(function () {
+            var id = $(this).val();
+            var item = model.newsList.find(t => t.id == id);
+            $('#desc').html(item.description);
+            formModel.id = id;
+            formModel.title = item.title;
+            formModel.description = item.description;
+        });
+    });
+    $('form').submit(function (e) {
+        e.preventDefault();
+        //bu kısım fonksiyonlaştıralabilir. Zaman kalırsa yap.
+        formModel["q1"] = {}
+        formModel.q1.q= $('#q1').val();
+        formModel.q1.q1a1 = $('#q1a1').val();
+        formModel.q1.q1a2 = $('#q1a2').val();
+        formModel.q1.q1a3 = $('#q1a3').val();
+        formModel.q1.q1a4 = $('#q1a4').val();
+        formModel.q1.c1 = $('#q1c').val();
+
+        formModel["q2"] = {}
+        formModel.q2.q = $('#q2').val();
+        formModel.q2.q2a1 = $('#q2a1').val();
+        formModel.q2.q2a2 = $('#q2a2').val();
+        formModel.q2.q2a3 = $('#q2a3').val();
+        formModel.q2.q2a4 = $('#q2a4').val();
+        formModel.q2.c2 = $('#q2c').val();
+
+        formModel["q3"] = {}
+        formModel.q3.q = $('#q3').val();
+        formModel.q3.q3a1 = $('#q3a1').val();
+        formModel.q3.q3a2 = $('#q3a2').val();
+        formModel.q3.q3a3 = $('#q3a3').val();
+        formModel.q3.q3a4 = $('#q3a4').val();
+        formModel.q3.c3 = $('#q3c').val();
+
+        formModel["q4"] = {}
+        formModel.q4.q = $('#q4').val();
+        formModel.q4.q4a1 = $('#q4a1').val();
+        formModel.q4.q4a2 = $('#q4a2').val();
+        formModel.q4.q4a3 = $('#q4a3').val();
+        formModel.q4.q4a4 = $('#q4a4').val();
+        formModel.q4.c1 = $('#q4c').val();
+
+
+        console.log("submit", formModel);
+        postForm(formModel);
+    });
+
+
+    function postForm(formModel) {
+        //$.ajax({
+        //    type: "POST",
+        //    dataType: "json",
+        //    url: '/CreateExam/Create',
+        //    data: JSON.stringify(formModel),
+        //    contentType: "application/json",
+        //    success: function (response) {
+        //        alert('form gönderildi')
+        //    },
+        //    error: function (error) {
+        //        console.log("error:", error);
+        //    }
+        //})
+        var response = fetch('/CreateExam/Create', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            data: JSON.stringify(formModel)
+        }).then(r => r.json());
+
+        console.log("response", response);
+    }
+</script>
